@@ -34,6 +34,18 @@ forgecore/
 - MySQL server with access credentials
 - Python packages listed in `requirements.txt`
 
+## WSL Installation
+For a fresh Ubuntu WSL environment you can install Apache, MySQL, PHP and phpMyAdmin with:
+```bash
+./scripts/install_wsl.sh
+```
+This script also creates the `forgecore` database and user and links phpMyAdmin under `/phpmyadmin`.
+After installation load the database schema with:
+```bash
+php scripts/setup_database.php
+```
+
+
 ## Getting Started
 
 1. Set the following environment variables before running any module:
