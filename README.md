@@ -50,6 +50,8 @@ forgecore/
    For example, the inventory manager exposes a small CLI:
    ```bash
    python3 backend/inventory_manager/main.py list
+   # cut 40 inches from material id 1 and record the part
+   python3 backend/inventory_manager/main.py cut 1 40
    ```
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.

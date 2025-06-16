@@ -57,6 +57,39 @@ class InventoryManager:
         self.conn.commit()
         cur.close()
 
+    def cut_material(self, material_id: int, cut_length: int, job_id: int | None = None) -> int:
+        """Cut a length from a material.
+
+        Returns the id of the created part record.
+        """
+        cur = dict_cursor(self.conn)
+        cur.execute("SELECT length_inches FROM materials WHERE id = %s", (material_id,))
+        row = cur.fetchone()
+        if row is None:
+            cur.close()
+            raise ValueError("Material not found")
+        if row["length_inches"] < cut_length:
+            cur.close()
+            raise ValueError("Cut length exceeds available length")
+
+        remaining = row["length_inches"] - cut_length
+        if remaining > 0:
+            cur.execute(
+                "UPDATE materials SET length_inches = %s, is_remnant = 1 WHERE id = %s",
+                (remaining, material_id),
+            )
+        else:
+            cur.execute("DELETE FROM materials WHERE id = %s", (material_id,))
+
+        cur.execute(
+            "INSERT INTO cut_parts (part_length_inches, material_id, job_id) VALUES (%s,%s,%s)",
+            (cut_length, material_id, job_id),
+        )
+        part_id = cur.lastrowid
+        self.conn.commit()
+        cur.close()
+        return part_id
+
     def remove_material(self, material_id: int) -> None:
         """Delete a material record."""
         cur = self.conn.cursor()
@@ -85,6 +118,11 @@ def cli() -> None:
     del_p = sub.add_parser("remove", help="Remove a material")
     del_p.add_argument("material_id", type=int)
 
+    cut_p = sub.add_parser("cut", help="Cut a length from a material")
+    cut_p.add_argument("material_id", type=int)
+    cut_p.add_argument("length", type=int, help="Length to cut in inches")
+    cut_p.add_argument("--job", type=int, default=None, help="Associated job id")
+
     args = parser.parse_args()
     inv = InventoryManager()
 
@@ -103,6 +141,9 @@ def cli() -> None:
     elif args.cmd == "remove":
         inv.remove_material(args.material_id)
         print("Material removed")
+    elif args.cmd == "cut":
+        part_id = inv.cut_material(args.material_id, args.length, job_id=args.job)
+        print(f"Recorded cut part {part_id}")
 
 
 if __name__ == "__main__":
