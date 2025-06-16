@@ -1,6 +1,6 @@
 # ForgeCore
 
-ForgeCore is a modular steel fabrication management system intended to run on a LAMP stack with a MySQL backend. The backend logic is written in Python while the frontend will be composed of PHP/HTML/JS.
+ForgeCore is a modular steel fabrication management system intended to run on a LAMP stack with a MySQL backend. The backend logic is written in Python while the frontend will be composed of PHP, HTML and JavaScript.
 
 This repository provides a foundational scaffold with separate modules for common fabrication tasks such as drawing parsing and cutlist optimization. Each module contains a small CLI harness to test functionality directly.
 
@@ -28,6 +28,12 @@ forgecore/
 └── README.md
 ```
 
+## Requirements
+
+- Python 3.8 or newer
+- MySQL server with access credentials
+- Python packages listed in `requirements.txt`
+
 ## Getting Started
 
 1. Set the following environment variables before running any module:
@@ -35,8 +41,11 @@ forgecore/
    - `DB_USER`
    - `DB_PASSWORD`
    - `DB_NAME`
-2. Install Python dependencies (mysql-connector-python).
-3. Import `database/schema.sql` into your MySQL server.
+2. Install Python dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Import `database/schema.sql` into your MySQL server and ensure it is running.
 4. Run individual modules with `python3 backend/<module>/main.py` to test functionality.
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.
