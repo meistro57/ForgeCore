@@ -47,5 +47,9 @@ forgecore/
    ```
 3. Import `database/schema.sql` into your MySQL server and ensure it is running.
 4. Run individual modules with `python3 backend/<module>/main.py` to test functionality.
+   For example, the inventory manager exposes a small CLI:
+   ```bash
+   python3 backend/inventory_manager/main.py list
+   ```
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.
