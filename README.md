@@ -70,5 +70,12 @@ php scripts/setup_database.php
    ```bash
    python3 backend/csv_importer/main.py inventory.csv
    ```
+   Customer records can also be managed from the CLI:
+   ```bash
+   python3 backend/customer_manager/main.py add "John Doe" --email john@example.com
+   python3 backend/customer_manager/main.py list
+   ```
+
+   A basic PHP form for adding customers is available at `frontend/customer_form.php`.
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.

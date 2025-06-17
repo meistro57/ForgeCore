@@ -7,5 +7,8 @@
 <body>
     <h1>ForgeCore Dashboard</h1>
     <p>This is a placeholder for the future web interface.</p>
+    <ul>
+        <li><a href="customer_form.php">Add Customer</a></li>
+    </ul>
 </body>
 </html>
