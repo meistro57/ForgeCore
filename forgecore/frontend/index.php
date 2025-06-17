@@ -9,7 +9,6 @@
     <p>This is a placeholder for the future web interface.</p>
     <ul>
         <li><a href="customer_form.php">Add Customer</a></li>
-        <li><a href="drawing_submittal_form.php">Submit Drawing</a></li>
     </ul>
 </body>
 </html>
