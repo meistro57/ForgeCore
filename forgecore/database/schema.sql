@@ -41,3 +41,16 @@ CREATE TABLE IF NOT EXISTS customers (
     address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS shop_drawing_requests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    job_number VARCHAR(255),
+    customer VARCHAR(255),
+    jobsite_address TEXT,
+    drawing_desc VARCHAR(255),
+    filename VARCHAR(255),
+    status VARCHAR(50) DEFAULT 'Pending',
+    notes TEXT,
+    title VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
