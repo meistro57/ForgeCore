@@ -76,6 +76,12 @@ php scripts/setup_database.php
    python3 backend/customer_manager/main.py list
    ```
 
+  Drawing submittals can also be logged from the CLI:
+  ```bash
+  python3 backend/drawing_submittal_logger/main.py add 1234 J100 Alice
+  python3 backend/drawing_submittal_logger/main.py list
+  ```
+
   A basic PHP form for adding customers is available at `frontend/customer_form.php`.
   A drawing submittal form is available at `frontend/drawing_submittal_form.php`.
 

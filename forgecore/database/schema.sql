@@ -41,3 +41,14 @@ CREATE TABLE IF NOT EXISTS customers (
     address TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS drawing_submittals (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    drawing_number VARCHAR(255) NOT NULL,
+    job_number VARCHAR(255) NOT NULL,
+    description TEXT,
+    submitted_by VARCHAR(255) NOT NULL,
+    submission_date DATE DEFAULT CURRENT_DATE,
+    status ENUM('Submitted','Reviewed','Approved') DEFAULT 'Submitted',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
