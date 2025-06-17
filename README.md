@@ -12,6 +12,7 @@ forgecore/
 │   ├── cutlist_optimizer/
 │   ├── drawing_parser/
 │   ├── inventory_manager/
+│   ├── csv_importer/
 │   ├── job_tracker/
 │   ├── visual_debugger/
 │   ├── label_printer/
@@ -64,6 +65,10 @@ php scripts/setup_database.php
    python3 backend/inventory_manager/main.py list
    # cut 40 inches from material id 1 and record the part
    python3 backend/inventory_manager/main.py cut 1 40
+   ```
+   You can also bulk add materials using the CSV importer:
+   ```bash
+   python3 backend/csv_importer/main.py inventory.csv
    ```
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.
