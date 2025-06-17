@@ -2,17 +2,17 @@
 
 CREATE TABLE IF NOT EXISTS jobs (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS materials (
     id INT AUTO_INCREMENT PRIMARY KEY,
     length_inches INT NOT NULL,
-    source VARCHAR(255),
+    `source` VARCHAR(255),
     is_remnant TINYINT(1) DEFAULT 0,
     job_id INT,
-    FOREIGN KEY (job_id) REFERENCES jobs(id)
+    FOREIGN KEY (job_id) REFERENCES jobs (id)
 );
 
 CREATE TABLE IF NOT EXISTS cut_parts (
@@ -20,8 +20,8 @@ CREATE TABLE IF NOT EXISTS cut_parts (
     part_length_inches INT NOT NULL,
     material_id INT,
     job_id INT,
-    FOREIGN KEY (material_id) REFERENCES materials(id),
-    FOREIGN KEY (job_id) REFERENCES jobs(id)
+    FOREIGN KEY (material_id) REFERENCES materials (id),
+    FOREIGN KEY (job_id) REFERENCES jobs (id)
 );
 
 CREATE TABLE IF NOT EXISTS drawings (
@@ -30,12 +30,12 @@ CREATE TABLE IF NOT EXISTS drawings (
     filename VARCHAR(255) NOT NULL,
     parsed TINYINT(1) DEFAULT 0,
     flagged TINYINT(1) DEFAULT 0,
-    FOREIGN KEY (job_id) REFERENCES jobs(id)
+    FOREIGN KEY (job_id) REFERENCES jobs (id)
 );
 
 CREATE TABLE IF NOT EXISTS customers (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
     email VARCHAR(255),
     phone VARCHAR(50),
     address TEXT,
