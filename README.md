@@ -76,6 +76,7 @@ php scripts/setup_database.php
    python3 backend/customer_manager/main.py list
    ```
 
-   A basic PHP form for adding customers is available at `frontend/customer_form.php`.
+  A basic PHP form for adding customers is available at `frontend/customer_form.php`.
+  A drawing submittal form is available at `frontend/drawing_submittal_form.php`.
 
 This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.
