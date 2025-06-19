@@ -62,10 +62,12 @@ php scripts/setup_database.php
 4. Run individual modules with `python3 backend/<module>/main.py` to test functionality.
    For example, the inventory manager exposes a small CLI:
    ```bash
-   python3 backend/inventory_manager/main.py list
-   # cut 40 inches from material id 1 and record the part
-   python3 backend/inventory_manager/main.py cut 1 40
-   ```
+    python3 backend/inventory_manager/main.py list
+    # cut 40 inches from material id 1 and record the part
+    python3 backend/inventory_manager/main.py cut 1 40
+    # show total available length in inventory
+    python3 backend/inventory_manager/main.py stats
+    ```
    You can also bulk add materials using the CSV importer:
    ```bash
    python3 backend/csv_importer/main.py inventory.csv
