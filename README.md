@@ -1,90 +1,62 @@
 # ForgeCore
 
-ForgeCore is a modular steel fabrication management system intended to run on a LAMP stack with a MySQL backend. The backend logic is written in Python while the frontend will be composed of PHP, HTML and JavaScript.
+ForgeCore is a modular steel fabrication management scaffold. It ships with a collection of Python CLI tools and a minimal PHP front end to demonstrate how each component interacts with a shared MySQL database.
 
-This repository provides a foundational scaffold with separate modules for common fabrication tasks such as drawing parsing and cutlist optimization. Each module contains a small CLI harness to test functionality directly.
+The goal of the project is to provide a simple starting point for shops that want to track jobs, inventory and drawings while leaving plenty of room for custom extensions.
 
-## Layout
+## Features
+- Job, customer and drawing tracking
+- Inventory management with cut logging
+- CSV imports for bulk data entry
+- Basic cut list optimization
+- Simple reporting and visual debugging tools
+- Placeholder API for future AI agents
 
-```
+A detailed list of modules and capabilities can be found in [docs/features.md](docs/features.md).
+
+## Repository Layout
+```text
 forgecore/
-├── backend/                # Python modules for all fabrication tasks
+├── backend/                # Python modules
+│   ├── agent_api/
+│   ├── csv_importer/
+│   ├── customer_manager/
 │   ├── cutlist_optimizer/
 │   ├── drawing_parser/
+│   ├── drawing_submittal_logger/
 │   ├── inventory_manager/
-│   ├── csv_importer/
 │   ├── job_tracker/
-│   ├── visual_debugger/
 │   ├── label_printer/
 │   ├── report_engine/
-│   └── agent_api/
-├── frontend/               # Placeholder for future PHP interface
-│   ├── index.php
-│   ├── dashboard/
-│   └── mobile_kiosk/
-├── database/
-│   └── schema.sql          # MySQL schema
-├── config/
-│   └── config.py           # Database connection helpers
-└── README.md
+│   └── visual_debugger/
+├── config/                 # Database connection helpers
+├── database/               # MySQL schema
+├── frontend/               # Example PHP forms
+└── scripts/                # Setup utilities
 ```
 
 ## Requirements
+- Python 3.8+
+- MySQL server
+- Packages listed in `requirements.txt`
 
-- Python 3.8 or newer
-- MySQL server with access credentials
-- Python packages listed in `requirements.txt`
-
-## WSL Installation
-For a fresh Ubuntu WSL environment you can install Apache, MySQL, PHP and phpMyAdmin with:
-```bash
-./scripts/install_wsl.sh
-```
-This script also creates the `forgecore` database and user and links phpMyAdmin under `/phpmyadmin`.
-After installation load the database schema with:
-```bash
-php scripts/setup_database.php
-```
-
-
-## Getting Started
-
-1. Set the following environment variables before running any module:
+## Quick Start
+1. Install the requirements:
+   ```bash
+   pip install -r requirements.txt
+   ```
+2. Import `forgecore/database/schema.sql` into MySQL.
+3. Export the database credentials expected by `forgecore/config/config.py`:
    - `DB_HOST`
    - `DB_USER`
    - `DB_PASSWORD`
    - `DB_NAME`
-2. Install Python dependencies:
+4. Run a module to verify connectivity, for example:
    ```bash
-   pip install -r requirements.txt
-   ```
-3. Import `database/schema.sql` into your MySQL server and ensure it is running.
-4. Run individual modules with `python3 backend/<module>/main.py` to test functionality.
-   For example, the inventory manager exposes a small CLI:
-   ```bash
-    python3 backend/inventory_manager/main.py list
-    # cut 40 inches from material id 1 and record the part
-    python3 backend/inventory_manager/main.py cut 1 40
-    # show total available length in inventory
-    python3 backend/inventory_manager/main.py stats
-    ```
-   You can also bulk add materials using the CSV importer:
-   ```bash
-   python3 backend/csv_importer/main.py inventory.csv
-   ```
-   Customer records can also be managed from the CLI:
-   ```bash
-   python3 backend/customer_manager/main.py add "John Doe" --email john@example.com
-   python3 backend/customer_manager/main.py list
+   python3 forgecore/backend/inventory_manager/main.py list
    ```
 
-  Drawing submittals can also be logged from the CLI:
-  ```bash
-  python3 backend/drawing_submittal_logger/main.py add 1234 J100 Alice
-  python3 backend/drawing_submittal_logger/main.py list
-  ```
+For a turnkey Windows Subsystem for Linux setup see `scripts/install_wsl.sh`.
 
-  A basic PHP form for adding customers is available at `frontend/customer_form.php`.
-  A drawing submittal form is available at `frontend/drawing_submittal_form.php`.
-
-This scaffold is intentionally simple and is meant to serve as a base for advanced extensions such as AI-assisted optimizations and a production-ready UI.
+## License
+This repository is released under the MIT license.
