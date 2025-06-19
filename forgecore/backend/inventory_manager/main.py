@@ -97,6 +97,17 @@ class InventoryManager:
         self.conn.commit()
         cur.close()
 
+    def total_length(self, remnants_only: bool = False) -> int:
+        """Return the total available length in inches."""
+        cur = dict_cursor(self.conn)
+        if remnants_only:
+            cur.execute("SELECT SUM(length_inches) AS total FROM materials WHERE is_remnant = 1")
+        else:
+            cur.execute("SELECT SUM(length_inches) AS total FROM materials")
+        row = cur.fetchone()
+        cur.close()
+        return int(row["total"] or 0)
+
 
 def cli() -> None:
     parser = argparse.ArgumentParser(description="Manage inventory records")
@@ -123,6 +134,9 @@ def cli() -> None:
     cut_p.add_argument("length", type=int, help="Length to cut in inches")
     cut_p.add_argument("--job", type=int, default=None, help="Associated job id")
 
+    stats_p = sub.add_parser("stats", help="Show total available length")
+    stats_p.add_argument("--remnants", action="store_true", help="Only count remnants")
+
     args = parser.parse_args()
     inv = InventoryManager()
 
@@ -144,6 +158,9 @@ def cli() -> None:
     elif args.cmd == "cut":
         part_id = inv.cut_material(args.material_id, args.length, job_id=args.job)
         print(f"Recorded cut part {part_id}")
+    elif args.cmd == "stats":
+        total = inv.total_length(remnants_only=args.remnants)
+        print(f"Total length: {total} inches")
 
 
 if __name__ == "__main__":
