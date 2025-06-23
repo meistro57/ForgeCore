@@ -58,5 +58,18 @@ forgecore/
 
 For a turnkey Windows Subsystem for Linux setup see `scripts/install_wsl.sh`.
 
+## Docker
+To run the entire stack in containers, install Docker and execute:
+```bash
+docker-compose up -d
+```
+This starts the application, MySQL and phpMyAdmin. The default database credentials are:
+- Host: `db`
+- User: `forgecore`
+- Password: `forgecore`
+- Database: `forgecore`
+phpMyAdmin is available on port 8080 and the PHP frontend on port 8000.
+
+
 ## License
 This repository is released under the MIT license.

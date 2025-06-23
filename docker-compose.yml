@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: forgecore
+      MYSQL_USER: forgecore
+      MYSQL_PASSWORD: forgecore
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./forgecore/database/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+
+  app:
+    build: .
+    ports:
+      - "8000:80"
+    environment:
+      DB_HOST: db
+      DB_USER: forgecore
+      DB_PASSWORD: forgecore
+      DB_NAME: forgecore
+    depends_on:
+      - db
+
+volumes:
+  db_data:
