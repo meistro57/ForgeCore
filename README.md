@@ -41,17 +41,18 @@ forgecore/
 - Packages listed in `requirements.txt`
 
 ## Quick Start
-1. Install the requirements:
+1. Execute the install script which installs the Python requirements and
+   initializes a local MySQL database:
    ```bash
-   pip install -r requirements.txt
+   ./scripts/install.sh
    ```
-2. Import `forgecore/database/schema.sql` into MySQL.
-3. Export the database credentials expected by `forgecore/config/config.py`:
+   The script prints the database credentials it configured. Export these
+   values so the backend modules can locate the database:
    - `DB_HOST`
    - `DB_USER`
    - `DB_PASSWORD`
    - `DB_NAME`
-4. Run a module to verify connectivity, for example:
+2. Run a module to verify connectivity, for example:
    ```bash
    python3 forgecore/backend/inventory_manager/main.py list
    ```
